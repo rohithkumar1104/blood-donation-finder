@@ -30,3 +30,6 @@ npm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+# Large GeoNames source data
+backend/data/locations/allCountries.zip
