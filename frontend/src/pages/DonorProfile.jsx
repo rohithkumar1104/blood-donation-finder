@@ -7,17 +7,22 @@ import { PATHS, useProfileLoader } from "../components/donor/donorShared";
 /* ------------------------------------------------------------------ */
 
 // Endpoint that creates a donor profile for the logged-in user.
-const API_URL = "http://127.0.0.1:8000/api/donors/profile/";
+const API_URL =
+  "https://blood-donation-finder-awce.onrender.com/api/donors/profile/";
 
 // Login stores the token under this key. DRF token auth expects
 // "Authorization: Token <token>". Use "Bearer" here if you use JWT.
 const TOKEN_KEY = "authToken";
 const AUTH_SCHEME = "Token";
 
-const BLOOD_GROUPS_API = "http://127.0.0.1:8000/api/blood-groups/";
-const STATES_API = "http://127.0.0.1:8000/api/locations/states/";
-const DISTRICTS_API = "http://127.0.0.1:8000/api/locations/districts/";
-const SUB_DISTRICTS_API = "http://127.0.0.1:8000/api/locations/sub-districts/";
+const BLOOD_GROUPS_API =
+  "https://blood-donation-finder-awce.onrender.com/api/blood-groups/";
+const STATES_API =
+  "https://blood-donation-finder-awce.onrender.com/api/locations/states/";
+const DISTRICTS_API =
+  "https://blood-donation-finder-awce.onrender.com/api/locations/districts/";
+const SUB_DISTRICTS_API =
+  "https://blood-donation-finder-awce.onrender.com/api/locations/sub-districts/";
 
 const GENDERS = [
   { value: "male", label: "Male" },

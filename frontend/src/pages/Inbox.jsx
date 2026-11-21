@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { chatApiRequest } from "../components/chat/chatApi";
 
-const API_URL = "http://127.0.0.1:8000/api";
+const API_URL = "https://blood-donation-finder-awce.onrender.com/api";
 const TOKEN_KEY = "authToken";
 
 const getListData = (data) => {

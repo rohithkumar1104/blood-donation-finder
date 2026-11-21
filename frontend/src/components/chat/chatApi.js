@@ -1,5 +1,5 @@
 
-const CHAT_API_URL = "http://127.0.0.1:8000/api/chats/";
+const CHAT_API_URL = "https://blood-donation-finder-awce.onrender.com/api/chats/";
 
 const TOKEN_KEY = "authToken";
 

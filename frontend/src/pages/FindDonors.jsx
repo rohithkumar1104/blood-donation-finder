@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const API_BASE = "http://127.0.0.1:8000/api";
+const API_BASE = "https://blood-donation-finder-awce.onrender.com/api";
 const TOKEN_KEY = "authToken";
 
 const ENDPOINTS = {

@@ -1,5 +1,6 @@
 
-const NOTIFICATION_API_URL = "http://127.0.0.1:8000/api/notifications/";
+const NOTIFICATION_API_URL =
+  "https://blood-donation-finder-awce.onrender.com/api/notifications/";
 const TOKEN_KEY = "authToken";
 
 export async function notificationApiRequest(
