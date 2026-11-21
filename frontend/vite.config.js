@@ -3,5 +3,6 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  base: "/blood-donation-finder/",
   plugins: [react(), tailwindcss()],
 });
