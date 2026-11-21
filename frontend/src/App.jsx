@@ -25,7 +25,7 @@ function GuestOnly({ children }) {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/blood-donation-finder">
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
 
