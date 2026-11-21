@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import BloodRequest, DirectBloodRequest, PublicRequestVolunteer
+
+admin.site.register(BloodRequest)
+admin.site.register(DirectBloodRequest)
+admin.site.register(PublicRequestVolunteer)

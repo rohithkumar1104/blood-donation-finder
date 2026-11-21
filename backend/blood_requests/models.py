@@ -5,8 +5,7 @@ from django.db.models import Q
 
 from blood_groups.models import BloodGroup
 from donors.models import DonorProfile
-from locations.models import Locality
-
+from locations.models import SubDistrict
 
 class BloodRequest(models.Model):
     class Urgency(models.TextChoices):
@@ -30,10 +29,12 @@ class BloodRequest(models.Model):
         on_delete=models.PROTECT,
         related_name="blood_requests",
     )
-    locality = models.ForeignKey(
-        Locality,
+    sub_district = models.ForeignKey(
+        SubDistrict,
         on_delete=models.PROTECT,
         related_name="blood_requests",
+        null=True,
+        blank=True,
     )
     units_needed = models.PositiveSmallIntegerField()
     hospital_name = models.CharField(max_length=200)
