@@ -33,18 +33,18 @@ ALLOWED_HOSTS = [".onrender.com", "localhost", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'unfold',
-    'django.contrib.admin',
-    
+
     'accounts',
     'donors',
     'locations',
@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'blood_requests',
     'chats',
     'notifications',
-
 ]
 
 MIDDLEWARE = [
