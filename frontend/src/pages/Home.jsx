@@ -332,6 +332,15 @@ const NAV_LINKS = [
   { label: "Eligibility", href: "#eligibility" },
 ];
 
+/* Scroll to a Home-page section without changing HashRouter's route hash. */
+function scrollToSection(event, href) {
+  if (!href?.startsWith("#")) return;
+
+  event.preventDefault();
+  const section = document.getElementById(href.slice(1));
+  section?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 function SiteHeader({
   isAuthenticated,
   onLogin,
@@ -394,7 +403,11 @@ function SiteHeader({
   return (
     <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <a href="#top" className="flex shrink-0 items-center gap-3">
+        <a
+          href="#top"
+          onClick={(event) => scrollToSection(event, "#top")}
+          className="flex shrink-0 items-center gap-3"
+        >
           <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-600 text-white">
             <DropIcon className="h-6 w-6" />
           </span>
@@ -415,6 +428,7 @@ function SiteHeader({
               <li key={link.href}>
                 <a
                   href={link.href}
+                  onClick={(event) => scrollToSection(event, link.href)}
                   className="rounded-md px-3 py-2 text-sm font-medium text-neutral-700 transition hover:bg-red-50 hover:text-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
                 >
                   {link.label}
@@ -479,7 +493,10 @@ function SiteHeader({
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={() => setOpen(false)}
+                  onClick={(event) => {
+                    scrollToSection(event, link.href);
+                    setOpen(false);
+                  }}
                   className="block rounded-md px-4 py-3 text-sm font-medium text-neutral-800 hover:bg-red-50 hover:text-red-700"
                 >
                   {link.label}
@@ -536,6 +553,7 @@ function Hero({ onRequestBlood }) {
             </button>
             <a
               href="#services"
+              onClick={(event) => scrollToSection(event, "#services")}
               className="text-sm font-semibold text-red-700 underline-offset-4 hover:underline"
             >
               See all services
@@ -1186,6 +1204,7 @@ function SiteFooter({
               <li key={link.href}>
                 <a
                   href={link.href}
+                  onClick={(event) => scrollToSection(event, link.href)}
                   className="hover:text-white hover:underline"
                 >
                   {link.label}
@@ -1316,6 +1335,7 @@ function Home() {
       )}
       <a
         href="#services"
+        onClick={(event) => scrollToSection(event, "#services")}
         className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-red-700"
       >
         Skip to services
