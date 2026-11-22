@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HomePublicRequests from "../components/HomePublicRequests";
 
@@ -554,7 +554,6 @@ function Hero({ onRequestBlood }) {
 /* ---------- ServiceCards ---------- */
 function ServiceCards({ onFindDonors, onRequestBlood, onBecomeDonor }) {
   const [activeId, setActiveId] = useState(null);
-  const detailsRef = useRef(null);
 
   const services = [
     {
@@ -605,16 +604,6 @@ function ServiceCards({ onFindDonors, onRequestBlood, onBecomeDonor }) {
   ];
 
   const active = services.find((s) => s.id === activeId);
-
-  // Bring the details into view when a card is chosen (helps on phones).
-  useEffect(() => {
-    if (activeId && detailsRef.current) {
-      detailsRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }
-  }, [activeId]);
 
   return (
     <section id="services" className="scroll-mt-20 bg-white py-14">
@@ -683,7 +672,7 @@ function ServiceCards({ onFindDonors, onRequestBlood, onBecomeDonor }) {
         </div>
 
         {/* Details for the chosen service */}
-        <div id="service-details" ref={detailsRef} aria-live="polite">
+        <div id="service-details" aria-live="polite">
           {active && (
             <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-6 sm:p-8">
               <div className="grid items-center gap-6 md:grid-cols-[1fr_auto]">

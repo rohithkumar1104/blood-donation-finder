@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -25,7 +25,7 @@ function GuestOnly({ children }) {
 
 function App() {
   return (
-    <BrowserRouter basename="/blood-donation-finder">
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
 
@@ -108,7 +108,7 @@ function App() {
 
       {/* Global notifications stay mounted across page navigation */}
       <GlobalChatNotifications />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
