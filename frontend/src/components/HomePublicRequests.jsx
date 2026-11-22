@@ -323,14 +323,10 @@ export default function HomePublicRequests() {
           </div>
         ) : (
           <div
-            className="home-request-viewport relative overflow-hidden py-3"
-            aria-label="Public blood requests scrolling horizontally"
+            className="home-request-viewport relative overflow-x-auto py-3"
+            aria-label="Public blood requests. Scroll horizontally to view more."
           >
-            <div
-              className={`home-request-track flex w-max ${
-                requests.length > 1 ? "is-animated" : ""
-              }`}
-            >
+            <div className="home-request-track flex w-max">
               <div className="home-request-group flex shrink-0 gap-5">
                 {requests.map((request) => (
                   <RequestCard
@@ -342,24 +338,6 @@ export default function HomePublicRequests() {
                   />
                 ))}
               </div>
-
-              {requests.length > 1 && (
-                <div
-                  className="home-request-group flex shrink-0 gap-5"
-                  aria-hidden="true"
-                >
-                  {requests.map((request) => (
-                    <RequestCard
-                      key={`duplicate-${request.id}`}
-                      request={request}
-                      onVolunteer={handleVolunteer}
-                      volunteering={volunteeringId === request.id}
-                      duplicate
-                      isOwner={isRequestOwner(request)}
-                    />
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         )}
@@ -372,40 +350,13 @@ export default function HomePublicRequests() {
 
       <style>{`
         .home-request-viewport {
-          overflow-x: hidden;
-        }
-
-        .home-request-track.is-animated {
-          animation: home-request-scroll 35s linear infinite;
-          will-change: transform;
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
         }
 
         .home-request-group {
           padding-right: 1.25rem;
-        }
-
-        .home-request-viewport:hover .home-request-track,
-        .home-request-viewport:focus-within .home-request-track {
-          animation-play-state: paused;
-        }
-
-        @keyframes home-request-scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .home-request-track.is-animated {
-            animation: none;
-          }
-
-          .home-request-viewport {
-            overflow-x: auto;
-          }
         }
       `}</style>
     </section>

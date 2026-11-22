@@ -377,23 +377,27 @@ function Inbox() {
     }
   }, [rows, location.state, location.pathname, navigate]);
 
-  // Select the first request when no notification navigation is pending.
+  // Do not open an old conversation automatically when Inbox loads.
+  // Users can choose a request from the list, or arrive from a notification link.
   useEffect(() => {
-    // Do not override a conversation being opened from a notification.
     if (location.state?.conversationId) return;
 
     if (!rows.length) {
       setSelectedKey("");
       setActiveConversation(null);
+      setMessages([]);
+      setMessagesError("");
       setShowMobileDetail(false);
       return;
     }
 
-    if (!rows.some((row) => row.key === selectedKey)) {
-      setSelectedKey(rows[0].key);
-      setActiveConversation(rows[0].conversation || null);
+    // Clear a selection only if its row no longer exists (for example, after a tab change).
+    if (selectedKey && !rows.some((row) => row.key === selectedKey)) {
+      setSelectedKey("");
+      setActiveConversation(null);
       setMessages([]);
       setMessagesError("");
+      setShowMobileDetail(false);
     }
   }, [rows, selectedKey, location.state?.conversationId]);
 
