@@ -5,6 +5,19 @@ import { notificationApiRequest } from "../notifications/notificationApi";
 
 const CHECK_INTERVAL = 5000;
 const MAX_NOTIFICATIONS = 4;
+const DISMISSED_NOTIFICATIONS_KEY = "dismissedChatNotificationIds";
+
+function getDismissedIds() {
+  try {
+    const storedIds = JSON.parse(
+      localStorage.getItem(DISMISSED_NOTIFICATIONS_KEY) || "[]",
+    );
+
+    return new Set(Array.isArray(storedIds) ? storedIds.map(String) : []);
+  } catch {
+    return new Set();
+  }
+}
 
 function getNotificationIcon(type) {
   switch (type) {
@@ -34,7 +47,20 @@ function getNotificationIcon(type) {
 function GlobalChatNotifications() {
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
-  const dismissedIds = useRef(new Set());
+  const dismissedIds = useRef(getDismissedIds());
+
+  const rememberDismissed = (id) => {
+    dismissedIds.current.add(String(id));
+
+    try {
+      localStorage.setItem(
+        DISMISSED_NOTIFICATIONS_KEY,
+        JSON.stringify([...dismissedIds.current]),
+      );
+    } catch (error) {
+      console.error("Failed to save dismissed notifications:", error);
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -64,7 +90,8 @@ function GlobalChatNotifications() {
 
         const unreadNotifications = notificationList.filter(
           (notification) =>
-            !notification.is_read && !dismissedIds.current.has(notification.id),
+            !notification.is_read &&
+            !dismissedIds.current.has(String(notification.id)),
         );
 
         setNotifications(unreadNotifications.slice(0, MAX_NOTIFICATIONS));
@@ -111,9 +138,12 @@ function GlobalChatNotifications() {
   }, []);
 
   const openNotification = async (notification) => {
+    // Remember it locally so it does not reappear after a page refresh.
+    rememberDismissed(notification.id);
+
     // Remove notification from visible cards.
     setNotifications((current) =>
-      current.filter((item) => item.id !== notification.id),
+      current.filter((item) => String(item.id) !== String(notification.id)),
     );
 
     // Mark notification as read.
@@ -144,9 +174,11 @@ function GlobalChatNotifications() {
   };
 
   const dismissNotification = (id) => {
-    dismissedIds.current.add(id);
+    rememberDismissed(id);
 
-    setNotifications((current) => current.filter((item) => item.id !== id));
+    setNotifications((current) =>
+      current.filter((item) => String(item.id) !== String(id)),
+    );
   };
 
   return (
